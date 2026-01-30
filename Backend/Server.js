@@ -9,7 +9,16 @@ const PORT = 5000;
 connectDB();
 
 // Middleware
-app.use(cors());
+// app.use(cors());
+
+//after deployment
+app.use(
+  cors({
+    origin: "https://anshreactminiapp.netlify.app/",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+  }),
+);
+
 app.use(express.json());
 
 // Test Route
@@ -35,5 +44,5 @@ app.use("/jobs", jobRoutes);
 //   });
 // });
 
-app.use("/addjob",jobRoutes);
-app.use("/edit-job",jobRoutes);
+app.use("/addjob", jobRoutes);
+app.use("/edit-job", jobRoutes);
