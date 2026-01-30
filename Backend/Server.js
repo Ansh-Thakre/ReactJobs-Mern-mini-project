@@ -14,7 +14,7 @@ connectDB();
 //after deployment
 app.use(
   cors({
-    origin: "https://anshreactminiapp.netlify.app/",
+    origin: "https://anshreactminiapp.netlify.app",
     methods: ["GET", "POST", "PUT", "DELETE"],
   }),
 );
