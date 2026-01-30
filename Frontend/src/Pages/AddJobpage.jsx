@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { API_URL } from "../config/env";
 
 const AddJobpage = () => {
   const [jobType, setJobtype] = useState("Full-Time");
@@ -15,6 +16,7 @@ const AddJobpage = () => {
   const [companyPhone, setCompanyPhone] = useState("");
 
   const [message, setMessage] = useState("");
+  
 
   // navigation
   const navigate = useNavigate();
@@ -37,7 +39,7 @@ const AddJobpage = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:5000/addjob", {
+      const response = await fetch(`${API_URL}/addjob`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -47,7 +49,7 @@ const AddJobpage = () => {
       const data = await response.json();
       // setMessage(data.message);
       toast.success("Job added Successfully");
-      navigate("/jobs" ); //{ state: { newJob: data.job } }
+      navigate("/jobs"); //{ state: { newJob: data.job } }
     } catch (err) {
       console.log("Error :", err);
     }

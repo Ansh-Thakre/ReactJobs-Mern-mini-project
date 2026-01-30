@@ -4,9 +4,11 @@ import Singlejoblisting from "./Singlejoblisting";
 import { useState, useEffect } from "react";
 import { use } from "react";
 import { useLocation } from "react-router-dom";
+import { API_URL } from "../config/env";
 
 const Joblistings = ({ isHome = false }) => {
   const location = useLocation();
+ 
 
   const [jobs, setJobs] = useState([]);
 
@@ -19,7 +21,7 @@ const Joblistings = ({ isHome = false }) => {
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const res = await fetch("http://localhost:5000/jobs");
+        const res = await fetch(`${API_URL}/jobs`);
         const data = await res.json();
         setJobs(data);
       } catch (err) {

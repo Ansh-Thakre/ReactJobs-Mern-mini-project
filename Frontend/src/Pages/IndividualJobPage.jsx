@@ -6,6 +6,7 @@ import { FaArrowLeft, FaMapMarker } from "react-icons/fa";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { API_URL } from "../config/env";
 
 const IndividualJobPage = () => {
   const [job, setJob] = useState([]);
@@ -16,7 +17,7 @@ const IndividualJobPage = () => {
   useEffect(() => {
     const fetchJobsdata = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/jobs/${id}`);
+        const res = await fetch(`${API_URL}/jobs/${id}`);
         if (!res.ok) throw new Error("Job not found");
         const jobdata = await res.json();
         setJob(jobdata);
@@ -32,7 +33,7 @@ const IndividualJobPage = () => {
 
   const deletejob = async (id) => {
     try {
-      const res = await axios.delete(`http://localhost:5000/jobs/${id}`);
+      const res = await axios.delete(`${API_URL}/jobs/${id}`);
 
       toast.success("Job deleted");
       console.log("DELETED ", res.data);

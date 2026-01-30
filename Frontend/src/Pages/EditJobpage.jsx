@@ -2,8 +2,10 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import { API_URL } from "../config/env";
 
 const EditJobpage = () => {
+ 
   const { id } = useParams();
 
   const navigate = useNavigate();
@@ -25,7 +27,7 @@ const EditJobpage = () => {
   useEffect(() => {
     const jobdetail = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/jobs/${id}`);
+        const res = await axios.get(`${API_URL}/jobs/${id}`);
         setJob(res.data);
         console.log(res.data);
       } catch (err) {
@@ -93,7 +95,7 @@ const EditJobpage = () => {
     e.preventDefault();
     try {
       const res = await axios.put(
-        `http://localhost:5000/edit-job/${job._id}`,
+        `${API_URL}/edit-job/${job._id}`,
         job,
       );
       toast.success("Job updated successfully !!");
