@@ -5,12 +5,13 @@ import { useState, useEffect } from "react";
 import { use } from "react";
 import { useLocation } from "react-router-dom";
 import { API_URL } from "../config/env";
+import Loader from "./Loader";
 
 const Joblistings = ({ isHome = false }) => {
   const location = useLocation();
- 
 
   const [jobs, setJobs] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   // useEffect(() => {
   //   fetch("http://localhost:5000/jobs")
@@ -26,13 +27,15 @@ const Joblistings = ({ isHome = false }) => {
         setJobs(data);
       } catch (err) {
         console.log("error fetching data ", err);
+      } finally {
+        setLoading(false);
       }
     };
     fetchJobs();
-    // if (location.state?.newJob) { // state pass from add-job page // 
+    // if (location.state?.newJob) { // state pass from add-job page //
     //   setJobs((prev) => [...prev, location.state.newJob]); // adding that new job in the previous array
     // }
-  }, ); //[location.state]
+  }); //[location.state]
 
   const Jobslisting = isHome ? jobs.slice(0, 3) : jobs;
 
@@ -44,12 +47,17 @@ const Joblistings = ({ isHome = false }) => {
           <h2 className="text-3xl font-bold text-indigo-500 mb-6 text-center">
             {isHome ? "Recent Jobs" : "Browse Jobs"}
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 m-4">
-            {/* <!-- Job Listing 1 --> */}
-            {Jobslisting.map((job) => (
-              <Singlejoblisting key={job._id} jobsData={job} />
-            ))}
-          </div>
+
+          {/* <!-- Job Listing 1 --> */}
+          {loading ? (
+            <Loader />
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 m-4">
+              {Jobslisting.map((job) => (
+                <Singlejoblisting key={job._id} jobsData={job} />
+              ))}
+            </div>
+          )}
         </div>
       </section>
     </>
